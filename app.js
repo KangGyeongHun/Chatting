@@ -1,18 +1,29 @@
-/* 설치한 express 모듈 불러오기*/
+// 설치한 express모듈 불러오기
 const express = require("express");
+// express 객체 생성
 const app = express();
-const io = require("socket.io");
+
+// 설치한 socket.io모듈 불러오기
+const socket = require("socket.io");
+//설치한 crypto모듈 불러오기
 const crypto = require("crypto");
-const { request, response } = require("express");
+
+//express http 서버 생성
 const Server = require("http").createServer(app);
+// 생성된 서버를 socket.io에 바인딩
+const io = socket(Server)
+
+// Node.js 기본 내장 모듈 불러오기
 const fs = require('fs')
+const http = require('http')
 
 app.use('/css', express.static('./static/css'))
 app.use('/js', express.static('./static/js'))
+app.use('/index.js', express.static('./index.js'))
 
 // get 방식으로 / 경로에 접속하면 실행 됨
 app.get("/",(request, response)=>{
-    fs.readFile('./static/index.html', function(err, data){
+    fs.readFile('./static/js/index.html', function(err, data){
         if(err){
             response.send('에러')
         } else {
@@ -24,7 +35,6 @@ app.get("/",(request, response)=>{
 })
 
 io.sockets.on('connection', function(socket){
-
     // 새로운 유저가 접속했을 경우 다른 소켓에게도 알려줌
     socket.on('newUser', function(name){
         console.log(name + '님이 접속하였습니다.')
