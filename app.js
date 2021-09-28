@@ -5,8 +5,8 @@ const app = express();
 
 // 설치한 socket.io모듈 불러오기
 const socket = require("socket.io");
-//설치한 crypto모듈 불러오기
-const crypto = require("crypto");
+//설치한 bcrypt모듈 불러오기
+const bcrypt = require('bcrypt');
 
 //express http 서버 생성
 const Server = require("http").createServer(app);
@@ -17,6 +17,7 @@ const io = socket(Server)
 const fs = require('fs')
 const http = require('http')
 
+// 파일 불러오기
 app.use('/css', express.static('./static/css'))
 app.use('/js', express.static('./static/js'))
 app.use('/index.js', express.static('./index.js'))
