@@ -28,7 +28,7 @@ router.post(
                 email,
                 password,
             });
-            // 암호화
+            /*// 암호화
             bcrypt.hash(myPlaintextPassword, saltRound, function(err, hash){
                 // 해시를 Password DB에 저장
             });
@@ -37,7 +37,10 @@ router.post(
             });
             bcrypt.compare(someOtherPlaintextPassword, hash, function(err, result){
                 // result == false
-            });
+            });*/
+        } catch(error){
+            console.error(error.message);
+            response.status(500).send("Server Error");
         }
     }
 );
